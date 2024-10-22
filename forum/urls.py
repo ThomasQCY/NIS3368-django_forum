@@ -1,9 +1,11 @@
 # coding:utf-8
 from django.urls import re_path
+from django.urls import path
 
 from django.contrib.auth.decorators import login_required
 from forum.views import IndexView, PostCreate, PostUpdate, PostDelete, MessageCreate, MessageDetail, SearchView, \
     UserPostView
+from .views import papers_list
 from django.contrib import admin
 
 from forum import views
@@ -11,6 +13,7 @@ from forum.manager_delete_decorator import delete_permission
 
 admin.autodiscover()
 
+#网站结构注册（新视图的添加）
 urlpatterns = [
     re_path(r'^accounts/login/$', views.userlogin, name='user_login'),
     re_path(r'^accounts/logout/$', views.userlogout, name='user_logout'),
@@ -30,6 +33,7 @@ urlpatterns = [
             name='make_friend'),
     re_path(r'^makecomment/$', views.makecomment, name='make_comment'),
     re_path(r'^user/postlist/$', UserPostView.as_view(), name='user_post'),
+    re_path(r'^user/postlike/$',views.likedetail, name='user_like'),
     re_path(r'^user/post_create/$',
             login_required(PostCreate.as_view()),
             name='post_create'),
@@ -56,4 +60,5 @@ urlpatterns = [
     re_path(r'^search/$', SearchView.as_view(), name='search'),
     re_path(r'^validate/$', views.validate, name='validate'),
     re_path(r'^uploadimage/', views.upload_image, name='upload_image'),
+    re_path(r'^papers/$', papers_list, name='papers_list'),
 ]
