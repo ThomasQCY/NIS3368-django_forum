@@ -5,6 +5,7 @@
 <br>
 
 主题：<a href="{% url 'user_post' %}">查看已发帖</a>;<a href="{% url 'post_create' %}">发帖</a>;<br>
+收藏的帖子：<a href="{{ user.get_like_url }}">查看收藏的帖子</a>
 
 通知:<br>
 {% for notice in notice_list %}
